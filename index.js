@@ -1,5 +1,6 @@
+require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
-const token = '6081196761:AAHTUAfSnOG9PyLWh7kt46lZsnsbWY_IjiI';
+const token = process.env.TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 const fs = require("fs");
 const YTDlpWrap = require('yt-dlp-wrap').default;
@@ -8,12 +9,12 @@ const express = require("express");
 const app = express();
 
 
-async function getMetaData(link){
+/*async function getMetaData(link){
   let metadata = await ytDlpWrap.getVideoInfo(
     'https://www.youtube.com/watch?v=aqz-KE-bpKQ'
 );
 console.log(metadata.title);
-}
+}*/ 
 
 bot.on('message', (msg) => {
     const name1 = Date.now();
