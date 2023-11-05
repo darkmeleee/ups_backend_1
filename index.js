@@ -1,10 +1,11 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const token = process.env.TOKEN;
+console.log(token);
 const bot = new TelegramBot(token, {polling: true});
 const fs = require("fs");
 const YTDlpWrap = require('yt-dlp-wrap').default;
-const ytDlpWrap = new YTDlpWrap('yt-dlp/yt-dlp.exe');
+const ytDlpWrap = new YTDlpWrap('yt-dlp/yt-dlp.exe'); // 
 const express = require("express");
 const app = express();
 
@@ -15,6 +16,10 @@ const app = express();
 );
 console.log(metadata.title);
 }*/ 
+
+function onerr(bot,chatId){
+  bot.sendMessage(chatId, "К сожалению, из-за ограничений телеграмма бот не может отправить видео, которые весят выше 50 мб. Приносим прощения за неудобства.")
+}
 
 bot.on('message', (msg) => {
     const name1 = Date.now();
@@ -46,7 +51,7 @@ bot.on('message', (msg) => {
     .on('ytDlpEvent', (eventType, eventData) =>
         console.log(eventType, eventData)
     ) 
-    .on('error', (error) => console.error(error))
+    .on('error', (error) => onerr(bot, chatId))
     .on('close', () => bot.sendVideo(chatId, `${name1}.mp4`));
 
     console.log(ytDlpEventEmitter.ytDlpProcess.pid);  
