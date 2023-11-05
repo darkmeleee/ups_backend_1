@@ -1,7 +1,6 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const token = process.env.TOKEN;
-console.log(token);
 const bot = new TelegramBot(token, {polling: true});
 const fs = require("fs");
 const YTDlpWrap = require('yt-dlp-wrap').default;
